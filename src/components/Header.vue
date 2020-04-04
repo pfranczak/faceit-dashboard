@@ -3,7 +3,7 @@
       <router-link to="/">
           <img src="../assets/logo.png" class="logo"/>
       </router-link>
-      <img src="../assets/hamburger.png" class="hamburger"/>
+      <img src="../assets/hamburger.png" class="hamburger" @click="$emit('show-menu')"/>
   </div>
 </template>
 

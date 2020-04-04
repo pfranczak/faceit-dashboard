@@ -1,17 +1,30 @@
 <template>
   <div id="app">
-    <Header/>
+    <Header
+      @show-menu="visible=true"
+    />
+    <SideMenu
+      :visible="visible"
+      @hide-menu="visible=false"
+    />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
+import SideMenu from './components/SideMenu.vue'
 
 export default {
   name: 'App',
+  data () {
+    return {
+      visible: false
+    }
+  },
   components: {
     Header,
+    SideMenu
   }
 }
 </script>
