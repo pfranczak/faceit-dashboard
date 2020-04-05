@@ -8,7 +8,12 @@
             </b-field>
             <b-button @click="clickMe">Find</b-button>
         </div>
-        <PlayerCard/>
+        <div class="cards"
+             v-for="card in cards"
+             v-bind:key="card.nickname"
+        >
+            <PlayerCard v-bind:card="card"/>
+        </div>
     </div>
 </template>
 
