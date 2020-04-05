@@ -1,19 +1,24 @@
 <template>
-    <div class="player-search">
-        <b-field>
-            <b-input v-model="nickname"
-                     placeholder="FACEIT nickname"
-            ></b-input>
-        </b-field>
-        <b-button @click="clickMe">Find</b-button>
+    <div>
+        <div class="player-search">
+            <b-field>
+                <b-input v-model="nickname"
+                         placeholder="FACEIT nickname"
+                ></b-input>
+            </b-field>
+            <b-button @click="clickMe">Find</b-button>
+        </div>
+        <PlayerCard/>
     </div>
 </template>
 
 <script>
     import { getDataFromEndpoint } from "../requests";
+    import PlayerCard from "./PlayerCard";
 
     export default {
         name: "PlayerSearch",
+        components: { PlayerCard },
         data() {
             return {
                 nickname: '',

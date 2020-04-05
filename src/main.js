@@ -11,7 +11,7 @@ export const globalState = new Vue({
     data: {
         authenticated: false
     }
-})
+});
 
 new Vue({
     router,
