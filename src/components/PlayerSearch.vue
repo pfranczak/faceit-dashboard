@@ -2,7 +2,7 @@
     <div class="player-search">
         <b-field>
             <b-input v-model="nickname"
-                     placeholder="Enter faceit nickname"
+                     placeholder="FACEIT nickname"
             ></b-input>
         </b-field>
         <b-button @click="clickMe">Find</b-button>
