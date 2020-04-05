@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1>Home</h1>
         <PlayerSearch/>
     </div>
 </template>
@@ -9,7 +8,7 @@
     import PlayerSearch from '../components/PlayerSearch';
 
     export default {
-        name: "Home",
+        name: 'Home',
         components: {
             PlayerSearch
         }

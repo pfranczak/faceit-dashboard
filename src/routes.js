@@ -6,6 +6,7 @@ import LoginSite from './views/LoginSite';
 Vue.use(VueRouter);
 
 export const router = new VueRouter({
+    mode: 'history',
     routes: [
         { path: '' , component: Home },
         { path: '/login' , component: LoginSite }
