@@ -3,13 +3,23 @@
       <router-link to="/">
           <img src="../assets/logo.png" class="logo"/>
       </router-link>
-      <img src="../assets/hamburger.png" class="hamburger" @click="$emit('show-menu')"/>
+      <div>
+        <router-link to="/login" v-if="authenticated">
+          <button class="button">Login</button>
+        </router-link>
+        <img src="../assets/hamburger.png" class="hamburger" @click="$emit('show-menu')"/>
+      </div>
   </div>
 </template>
 
 <script>
+import {globalState} from '../main.js'
+
 export default {
   name: 'Header',
+  data: () => ({
+    authenticated: !globalState.authenticated
+  }),
 }
 </script>
 
@@ -32,4 +42,9 @@ export default {
     width: 62px;
     height: 66px;
 }
+
+.button {
+  margin-right: 12px
+}
+
 </style>

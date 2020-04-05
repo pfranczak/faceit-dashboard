@@ -7,6 +7,12 @@ import { router } from './routes';
 Vue.config.productionTip = false;
 Vue.use(Buefy);
 
+export const globalState = new Vue({
+    data: {
+        authenticated: false
+    }
+})
+
 new Vue({
     router,
     render: h => h(App),
