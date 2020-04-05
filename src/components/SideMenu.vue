@@ -4,10 +4,10 @@
         :class="visible && 'visible'"
     >
         <a class="closebtn" @click="$emit('hide-menu')">&times;</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+        <a>About</a>
+        <a>Services</a>
+        <a>Clients</a>
+        <a>Contact</a>
     </div>
 </template>
 

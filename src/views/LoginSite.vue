@@ -1,10 +1,15 @@
 <template>
-    <h1>Login site</h1>
+    <button @click="connectFACTEIT">Connect with FACEIT</button>
 </template>
 
 <script>
     export default {
-        name: "LoginSite"
+        name: "LoginSite",
+        methods: {
+            connectFACTEIT () {
+                window.FACEIT.loginWithFaceit()
+            }
+        }
     }
 </script>
 
