@@ -8,11 +8,8 @@
             </b-field>
             <b-button @click="clickMe">Find</b-button>
         </div>
-        <div class="cards"
-             v-for="card in cards"
-             v-bind:key="card.nickname"
-        >
-            <PlayerCard v-bind:card="card"/>
+        <div class="cards">
+            <PlayerCard v-for="card in cards" :key="card.nickname" v-bind:card="card"/>
         </div>
     </div>
 </template>
@@ -34,7 +31,7 @@
             clickMe() {
                 getDataFromEndpoint('search/players', { nickname: this.nickname })
                     .then(({ data: { items } }) => {
-                        this.cards = items
+                        this.cards = items.filter(({ games }) => games.filter(({ name }) => name === 'csgo').length > 0);
                     });
             }
         }
@@ -54,5 +51,15 @@
 
     .player-search .field {
         margin: 0;
+    }
+
+    .cards {
+        display: flex;
+        white-space: nowrap;
+        max-width: 95vw;
+        overflow-x: auto;
+        margin: 0 auto;
+        padding: .4em .1em;
+        justify-content: center;
     }
 </style>
