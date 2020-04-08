@@ -1,7 +1,7 @@
 <template>
     <div v-if="faceit_elo" class="card">
         <img v-if="avatar" class="card__avatar" alt="player-avatar" v-bind:src="avatar"/>
-        <div v-if="!avatar" class="card__avatar card__avatar--fake"></div>
+        <div v-else class="card__avatar card__avatar--fake"></div>
         <div class="card__nickname">
             <img class="card__flag"
                  v-bind:src="'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/1x1/' + country.toLowerCase() + '.svg'"/>
