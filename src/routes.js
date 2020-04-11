@@ -2,8 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from './views/Home';
 import LoginSite from './views/LoginSite';
-import { globalState } from './main'
-
+import store from './store';
 Vue.use(VueRouter);
 
 export const router = new VueRouter({
@@ -15,8 +14,8 @@ export const router = new VueRouter({
         }},
         { path: '/login' , component: LoginSite },
         { path: '/' , component: Home,  beforeEnter: (to, from, next) => {
-            globalState.authenticated = window.FACEIT.getAuthenticationStatus() === "connected"
-            console.log(window.FACEIT.getAuthenticationStatus() === "connected")
+            store.commit('authenticate', window.FACEIT.getAuthenticationStatus() === "connected");
+            console.log(window.FACEIT.getAuthenticationStatus() === "connected");
             next()
         }},
     ]

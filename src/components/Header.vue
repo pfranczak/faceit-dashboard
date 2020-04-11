@@ -1,50 +1,54 @@
 <template>
-  <div class="header">
-      <router-link to="/">
-          <img src="../assets/logo.png" class="logo"/>
-      </router-link>
-      <div>
-        <router-link to="/login" v-if="authenticated">
-          <button class="button">Login</button>
+    <div class="header">
+        <router-link to="/">
+            <img src="../assets/logo.png" class="logo"/>
         </router-link>
-        <img src="../assets/hamburger.png" class="hamburger" @click="$emit('show-menu')"/>
-      </div>
-  </div>
+        <div>
+            <router-link to="/login" v-if="!authenticated">
+                <button class="button">Login</button>
+            </router-link>
+            <img src="../assets/hamburger.png" class="hamburger" @click="$emit('show-menu')"/>
+        </div>
+    </div>
 </template>
 
 <script>
-import {globalState} from '../main.js'
+    import store from '../store';
 
-export default {
-  name: 'Header',
-  data: () => ({
-    authenticated: !globalState.authenticated
-  }),
-}
+    export default {
+        name: 'Header',
+        computed: {
+            authenticated() {
+                return store.state.authenticated
+            }
+        }
+    }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.header {
-  text-align: center;
-  background-color: #F0F1F3;
-  font-size: 30px;
-  border-bottom: 2px black solid;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 15px
-}
-.logo, .hamburger {
-    align-self: center;
-}
-.logo {
-    width: 62px;
-    height: 66px;
-}
+    .header {
+        text-align: center;
+        background-color: #F0F1F3;
+        font-size: 30px;
+        border-bottom: 2px black solid;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 15px
+    }
 
-.button {
-  margin-right: 12px
-}
+    .logo, .hamburger {
+        align-self: center;
+    }
+
+    .logo {
+        width: 62px;
+        height: 66px;
+    }
+
+    .button {
+        margin-right: 12px
+    }
 
 </style>
