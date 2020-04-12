@@ -1,4 +1,5 @@
 <template>
+    <router-link :to="{ name: 'player', params: { id: card.player_id }}">
     <div v-if="faceit_elo" class="card">
         <img v-if="avatar" class="card__avatar" alt="player-avatar" v-bind:src="avatar"/>
         <div v-else class="card__avatar card__avatar--fake"></div>
@@ -9,6 +10,7 @@
         </div>
         <h6 class="subtitle is-6">{{faceit_elo}}</h6>
     </div>
+    </router-link>
 </template>
 
 <script>
