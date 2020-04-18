@@ -25,7 +25,26 @@
         <div class="separator"></div>
         <button class="accordion" @click="setCurrentPanel(2)"><i class="fa" :class="selected_panel === 2 ? 'fa-chevron-down' : 'fa-chevron-right'" aria-hidden="true"></i>Matches</button>
         <div class="panel" :style="{ display: selected_panel === 2 ? 'block' : 'none' }">
-          <p>MAtch1</p>
+          <table class="match-table">
+            <thead>
+              <tr class="match-row header">
+                <td>Result</td>
+                <td>Type</td>
+                <td>Game</td>
+                <td>Team 1</td>
+                <td>Team 2</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="match in matches" :key="match.id" class="match-row">
+                <td align="left"><i class="fa" :class="match.didWin ? 'fa-angle-double-up' : 'fa-angle-double-down'" aria-hidden="true"></i></td>
+                <td align="left">{{match.game_mode}}</td>
+                <td align="left">{{match.game}}</td>
+                <td align="left"><img class="flag" v-bind:src="match.teams.faction1.avatar"/>{{match.teams.faction1.nickname}}</td>
+                <td align="left"><img class="flag" v-bind:src="match.teams.faction2.avatar"/>{{match.teams.faction2.nickname}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
     </div>
 </template>
@@ -44,6 +63,7 @@
             stars: new Array(10),
             nickname: null,
             selected_panel: 0,
+            matches: []
           }
         },
         computed: {
@@ -61,6 +81,21 @@
         },
         mounted: function () {
             this.$nextTick(() => {
+                getDataFromEndpoint(`players/${this.id}/history`)
+                  .then(data => {
+                    console.log(data)
+                    const matches = data.data.items.map((match) => ({
+                      game_mode: match.game_mode,
+                      game: match.game_id,
+                      teams: match.teams,
+                      results: match.results,
+                      id: match.match_id,
+                      didWin: match.teams[match.results.winner].players.map(player=> player.player_id).includes(this.id)
+                    }))
+                    console.log(matches)
+                    this.matches = matches
+                  })
+
                 getDataFromEndpoint(`players/${this.id}`)
                     .then(({ data: { games: { csgo: { faceit_elo, skill_level } }, avatar, country, nickname  } }) => {
                         this.faceit_elo = faceit_elo;
@@ -184,9 +219,39 @@
     background-color: white;
     display: none;
     overflow: hidden;
+    width: 90%
   }
 
   .separator {
       height: 17px;
+  }
+
+  .match-row {
+    display: flex;
+    justify-content: space-between
+  }
+
+  .match-table {
+    width: 100%
+  }
+
+  .match-table td {
+    width: 20%;
+    margin: 10px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+
+  .match-table .fa-angle-double-up{
+    color: green
+  }
+
+  .match-table .fa-angle-double-down{
+    color: red
+  }
+  .match-table .header {
+    font-size: 16;
+    font-weight: 500;
   }
 </style>

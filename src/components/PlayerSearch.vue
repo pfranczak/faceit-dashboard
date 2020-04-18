@@ -23,7 +23,7 @@
         components: { PlayerCard },
         data() {
             return {
-                nickname: '',
+                nickname: 'chaubee',
                 cards: [],
             }
         },
