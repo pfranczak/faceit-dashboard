@@ -13,13 +13,11 @@
 </template>
 
 <script>
-    import store from '../store';
-
     export default {
         name: 'Header',
         computed: {
             authenticated() {
-                return store.state.authenticated
+                return this.$store.getters.authenticated
             }
         }
     }
