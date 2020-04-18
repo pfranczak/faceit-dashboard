@@ -1,4 +1,5 @@
 <template>
+    <router-link :to="{ name: 'player', params: { id: card.player_id }}">
     <div v-if="faceit_elo" class="card">
         <Avatar v-bind:avatar-url="avatar"/>
         <div class="card__nickname">
@@ -9,6 +10,7 @@
         <h6 class="subtitle is-6">{{faceit_elo}}</h6>
         <b-button rounded @click="addToCompare">Compare</b-button>
     </div>
+    </router-link>
 </template>
 
 <script>
