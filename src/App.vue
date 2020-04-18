@@ -36,7 +36,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: #F0F1F3
+  background-color: #F0F1F3;
+  height: 100%;
 }
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
