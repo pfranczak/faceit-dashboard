@@ -15,7 +15,6 @@ export const router = new VueRouter({
         { path: '/login' , component: LoginSite },
         { path: '/' , component: Home,  beforeEnter: (to, from, next) => {
             store.commit('authenticate', window.FACEIT.getAuthenticationStatus() === "connected");
-            console.log(window.FACEIT.getAuthenticationStatus() === "connected");
             next()
         }},
     ]
