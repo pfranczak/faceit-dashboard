@@ -1,7 +1,6 @@
 <template>
    <div v-if="faceit_elo" class="player_screen">
-        <img v-if="avatar" class="avatar" alt="player-avatar" v-bind:src="avatar"/>
-        <div v-else class="card__avatar card__avatar--fake"></div>
+        <Avatar v-bind:avatar-url="avatar"/>
         <div class="nickname_flag">
             <img class="flag"
                  v-bind:src="'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/1x1/' + country.toLowerCase() + '.svg'"/>
@@ -32,9 +31,12 @@
 
 <script>
     import { getDataFromEndpoint } from "../requests";
+    import Avatar from "../components/common/Avatar";
+
     export default {
         name: "Player",
         props: ['id'],
+        components: {Avatar},
         data() {
           return {
             faceit_elo: 0,
@@ -48,12 +50,12 @@
         },
         computed: {
           progress_width: function () {
-            return this.faceit_elo/2000 * 260
+            return this.faceit_elo >= 2000 ? 260 : this.faceit_elo/2000 * 260
          }
         },
         methods: {
           setCurrentPanel(panel) {
-              if(this.selected_panel === panel) this.selected_panel = 0
+              if(this.selected_panel === panel) this.selected_panel = 0;
               else {
                 this.selected_panel = panel
               }
@@ -89,39 +91,16 @@
       position: static;
       left: 0;
       height: 4px;
-      width: 0px;
+      width: 0;
     }
     .elo_score {
       color: #000000
-    }
-
-    .avatar {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        border: 1px solid rgba(10, 10, 10, .2);
-        margin: 0 auto;
-        margin-top: 100px;
-        margin-bottom: 14px;
     }
 
     .nickname_flag {
       display: flex;
       align-items: baseline;
       justify-content: center;
-    }
-
-    .card__avatar--fake {
-        align-items: center;
-        display: flex;
-        font-size: 35px;
-        justify-content: center;
-    }
-
-    .card__avatar--fake:after {
-        color: rgba(10, 10, 10, .2);
-        content: 'A';
-        display: block;
     }
 
     .nickname {
