@@ -1,21 +1,25 @@
 <template>
+    <router-link :to="{ name: 'player', params: { id: card.player_id }}">
     <div v-if="faceit_elo" class="card">
-        <img v-if="avatar" class="card__avatar" alt="player-avatar" v-bind:src="avatar"/>
-        <div v-else class="card__avatar card__avatar--fake"></div>
+        <Avatar v-bind:avatar-url="avatar"/>
         <div class="card__nickname">
             <img class="card__flag"
                  v-bind:src="'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/1x1/' + country.toLowerCase() + '.svg'"/>
             <h6 class="title is-6">{{nickname}}</h6>
         </div>
         <h6 class="subtitle is-6">{{faceit_elo}}</h6>
+        <b-button rounded @click="addToCompare">Compare</b-button>
     </div>
+    </router-link>
 </template>
 
 <script>
     import { getDataFromEndpoint } from "../requests";
+    import Avatar from "./common/Avatar";
 
     export default {
         name: 'PlayerCard',
+        components: {Avatar},
         props: ['card'],
         data() {
             return {
@@ -30,6 +34,11 @@
                         this.faceit_elo = faceit_elo;
                     });
             });
+        },
+        methods: {
+            addToCompare() {
+                this.$store.commit('addToCompare', { id: this.card.player_id, avatar: this.card.avatar, name: this.card.nickname });
+            }
         }
     }
 </script>
@@ -41,32 +50,11 @@
         margin-right: .4em;
         padding: 1.5em;
         min-width: 140px;
-        height: 170px;
+        height: 210px;
     }
 
     .card:last-child {
         margin: 0;
-    }
-
-    .card__avatar {
-        width: 75px;
-        height: 75px;
-        border-radius: 50%;
-        border: 1px solid rgba(10, 10, 10, .2);
-        margin: 0 auto;
-    }
-
-    .card__avatar--fake {
-        align-items: center;
-        display: flex;
-        font-size: 35px;
-        justify-content: center;
-    }
-
-    .card__avatar--fake:after {
-        color: rgba(10, 10, 10, .2);
-        content: 'A';
-        display: block;
     }
 
     .card__nickname {
@@ -86,6 +74,6 @@
     }
 
     .card .subtitle {
-        margin-top: .3em;
+        margin: .3em auto;
     }
 </style>

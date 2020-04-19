@@ -54,7 +54,6 @@
     }
 
     .cards {
-        display: flex;
         white-space: nowrap;
         max-width: 95vw;
         overflow-x: auto;
