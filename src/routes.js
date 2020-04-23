@@ -5,7 +5,11 @@ import LoginSite from './views/LoginSite';
 import ComparisonSite from './views/ComparisonSite';
 import store from './store';
 import PlayerSite from './views/Player';
+<<<<<<< HEAD
 
+=======
+import store from './store';
+>>>>>>> a3e9891... ISSUE-11 Add users matches list.
 Vue.use(VueRouter);
 
 export const router = new VueRouter({
@@ -18,7 +22,7 @@ export const router = new VueRouter({
         { path: '/comparison' , component: ComparisonSite },
         { path: '/player/:id', name: 'player' , component: PlayerSite, props: true },
         { path: '/' , component: Home,  beforeEnter: (to, from, next) => {
-            globalState.authenticated = window.FACEIT.getAuthenticationStatus() === "connected"
+            store.commit('authenticate', window.FACEIT.getAuthenticationStatus() === "connected");
             next()
         }},
     ]
