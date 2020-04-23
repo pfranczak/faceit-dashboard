@@ -5,15 +5,8 @@ import LoginSite from './views/LoginSite';
 import ComparisonSite from './views/ComparisonSite';
 import store from './store';
 import PlayerSite from './views/Player';
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 import Axios from 'axios';
->>>>>>> 9965b19... ISSUE-16 Add steam login functionality.
 
-=======
-import store from './store';
->>>>>>> a3e9891... ISSUE-11 Add users matches list.
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -32,11 +25,7 @@ const router = new VueRouter({
         { path: '/comparison' , component: ComparisonSite },
         { path: '/player/:id', name: 'player' , component: PlayerSite, props: true },
         { path: '/' , component: Home,  beforeEnter: (to, from, next) => {
-<<<<<<< HEAD
-            store.commit('authenticate', window.FACEIT.getAuthenticationStatus() === "connected");
-=======
             store.commit('authenticate', window.FACEIT.getAuthenticationStatus() === "connected" || store.getters.steamUser !== null);
->>>>>>> 9965b19... ISSUE-16 Add steam login functionality.
             next()
         }},
     ]
@@ -49,7 +38,7 @@ router.beforeEach((to, from, next) => {
         store.commit('authenticate', window.FACEIT.getAuthenticationStatus() === "connected" || store.getters.steamUser !== null);
         next()
     })
-})
+});
 
 
 
