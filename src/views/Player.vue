@@ -83,7 +83,6 @@
             this.$nextTick(() => {
                 getDataFromEndpoint(`players/${this.id}/history`)
                   .then(data => {
-                    console.log(data)
                     const matches = data.data.items.map((match) => ({
                       game_mode: match.game_mode,
                       game: match.game_id,
@@ -92,7 +91,6 @@
                       id: match.match_id,
                       didWin: match.teams[match.results.winner].players.map(player=> player.player_id).includes(this.id)
                     }))
-                    console.log(matches)
                     this.matches = matches
                   })
 
