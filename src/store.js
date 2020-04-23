@@ -6,11 +6,15 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         authenticated: false,
+        steamUser: null,
         playersToCompare: []
     },
     getters: {
         authenticated(state) {
             return state.authenticated;
+        },
+        steamUser(state) {
+            return state.steamUser;
         },
         playersToCompare(state) {
             return state.playersToCompare;
@@ -20,6 +24,9 @@ const store = new Vuex.Store({
     mutations: {
         authenticate(state, payload) {
             state.authenticated = payload;
+        },
+        setSteamUser(state, payload) {
+            state.steamUser = payload;
         },
         addToCompare(state, payload) {
             const isAdded = state.playersToCompare.filter(({id}) => id === payload.id).length !== 0;
