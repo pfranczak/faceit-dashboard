@@ -29,6 +29,7 @@
         },
         mounted: function () {
             this.$nextTick(() => {
+                console.log(this.card.player_id)
                 getDataFromEndpoint(`players/${this.card.player_id}`)
                     .then(({ data: { games: { csgo: { faceit_elo } } } }) => {
                         this.faceit_elo = faceit_elo;

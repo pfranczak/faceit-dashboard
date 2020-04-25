@@ -1,6 +1,7 @@
 import * as axios from 'axios';
 
 const API_URL = 'https://open.faceit.com/data/v4/';
+const SERVER_URL = process.env.VUE_APP_SERVER;
 
 const DEFAULT_HEADERS = {
     Authorization: `Bearer ${process.env.VUE_APP_FACEIT_KEY}`
@@ -15,6 +16,10 @@ export const getDataFromEndpoint = (endpoint, params) => {
     return axios.get(API_URL + endpoint,
         {
             headers: DEFAULT_HEADERS,
-            params: { ...DEFAULT_PARAMS, ...params }
+            params: {...DEFAULT_PARAMS, ...params}
         });
+};
+
+export const getDataFromServer = (endpoint) => {
+    return axios.get(SERVER_URL + endpoint, { withCredentials: true });
 };

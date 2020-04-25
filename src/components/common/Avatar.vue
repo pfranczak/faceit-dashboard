@@ -18,6 +18,7 @@
         border-radius: 50%;
         border: 1px solid rgba(10, 10, 10, .2);
         margin: 0 auto;
+        display: block;
     }
 
     .avatar--fake {
