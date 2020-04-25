@@ -55,8 +55,4 @@
     .cards .card {
         background-color: #a9b0b4;
     }
-
-    button {
-        background-color: #a9b0b4;
-    }
 </style>
