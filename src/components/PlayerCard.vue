@@ -8,7 +8,7 @@
             <h6 class="title is-6">{{nickname}}</h6>
         </div>
         <h6 class="subtitle is-6">{{faceit_elo}}</h6>
-        <b-button rounded @click="addToCompare">Compare</b-button>
+        <b-button rounded @click.stop.prevent="addToCompare">Compare</b-button>
         </router-link>
     </div>
 </template>
