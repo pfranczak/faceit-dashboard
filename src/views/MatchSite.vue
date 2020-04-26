@@ -63,7 +63,7 @@
 </template>
 
 <script>
-    import { getDataFromEndpoint } from "../requests";
+    import { getDataFromEndpoint } from '../requests';
 
     export default {
         name: "MatchSite",
