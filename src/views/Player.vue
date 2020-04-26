@@ -74,17 +74,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="match in matches" :key="match.id" class="match-row">
-                            <td align="left"><i class="fa"
-                                                :class="match.didWin ? 'fa-angle-double-up' : 'fa-angle-double-down'"
-                                                aria-hidden="true"></i></td>
-                            <td align="left">{{match.game_mode}}</td>
-                            <td align="left">{{match.game}}</td>
-                            <td align="left"><img class="flag" v-bind:src="match.teams.faction1.avatar"/>{{match.teams.faction1.nickname}}
-                            </td>
-                            <td align="left"><img class="flag" v-bind:src="match.teams.faction2.avatar"/>{{match.teams.faction2.nickname}}
-                            </td>
-                        </tr>
+                        <router-link :to="{ name: 'match', params: { id: match.id}}" v-for="match in matches" :key="match.id">
+                            <tr class="match-row" >
+                                <td align="center"><i class="fa"
+                                                    :class="match.didWin ? 'fa-angle-double-up' : 'fa-angle-double-down'"
+                                                    aria-hidden="true"></i></td>
+                                <td align="left">{{match.game_mode}}</td>
+                                <td align="left">{{match.game}}</td>
+                                <td align="left"><img class="flag" v-bind:src="match.teams.faction1.avatar"/>{{match.teams.faction1.nickname}}
+                                </td>
+                                <td align="left"><img class="flag" v-bind:src="match.teams.faction2.avatar"/>{{match.teams.faction2.nickname}}
+                                </td>
+                            </tr>
+                        </router-link>
                         </tbody>
                     </table>
                 </div>
@@ -120,14 +122,6 @@
                 return this.faceit_elo >= 2000 ? 260 : this.faceit_elo / 2000 * 260
             }
         },
-        methods: {
-            setCurrentPanel(panel) {
-                if (this.selected_panel === panel) this.selected_panel = 0;
-                else {
-                    this.selected_panel = panel
-                }
-            },
-        },
         mounted: function () {
             this.$nextTick(() => {
                 getDataFromEndpoint(`players/${this.id}/history`)
@@ -152,7 +146,7 @@
                     });
 
                 getDataFromEndpoint(`players/${this.id}/stats/csgo`)
-                    .then(({data: {lifetime}}) => {
+                    .then(({ data: { lifetime } }) => {
                         const stats = {};
                         Object.entries(lifetime).forEach(([key, value]) => {
                             if (key !== 'Total Headshots %'
@@ -269,10 +263,15 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        color: initial;
     }
 
     .match-table td:nth-child(n + 4) {
         width: 80%;
+    }
+
+    .match-table td:nth-child(n + 2) {
+        display: flex;
     }
 
     .match-table .fa-angle-double-up {
