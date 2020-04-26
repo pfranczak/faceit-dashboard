@@ -33,7 +33,8 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 15px
+        padding: 0 15px;
+        margin-bottom: 1em;
     }
 
     .logo, .hamburger {

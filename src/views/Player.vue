@@ -74,11 +74,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <router-link :to="{ name: 'match', params: { id: match.id}}" v-for="match in matches" :key="match.id">
-                            <tr class="match-row" >
+                        <router-link :to="{ name: 'match', params: { id: match.id}}" v-for="match in matches"
+                                     :key="match.id">
+                            <tr class="match-row">
                                 <td align="center"><i class="fa"
-                                                    :class="match.didWin ? 'fa-angle-double-up' : 'fa-angle-double-down'"
-                                                    aria-hidden="true"></i></td>
+                                                      :class="match.didWin ? 'fa-angle-double-up' : 'fa-angle-double-down'"
+                                                      aria-hidden="true"></i></td>
                                 <td align="left">{{match.game_mode}}</td>
                                 <td align="left">{{match.game}}</td>
                                 <td align="left"><img class="flag" v-bind:src="match.teams.faction1.avatar"/>{{match.teams.faction1.nickname}}
@@ -92,17 +93,23 @@
                 </div>
             </div>
         </b-collapse>
+        <div v-if="mapChartData !== null" class="charts-wrapper">
+            <div v-for="item in mapChartData.datasets" :key="item[0].label" style="margin-top: 2em">
+                <h1>{{item[0].label}} by maps</h1>
+                <PieChart :chartdata="{labels: mapChartData.labels, datasets: item}"></PieChart>
+            </div>
+        </div>
     </div>
 </template>
-
 <script>
     import { getDataFromEndpoint } from "../requests";
     import Avatar from "../components/common/Avatar";
+    import PieChart from "../components/common/PieChart";
 
     export default {
         name: "Player",
         props: ['id'],
-        components: { Avatar },
+        components: { Avatar, PieChart },
         data() {
             return {
                 faceit_elo: 0,
@@ -114,12 +121,62 @@
                 selected_panel: 0,
                 matches: [],
                 isOpen: 0,
-                stats: {}
+                stats: {},
+                toCharts: null
             }
         },
         computed: {
             progress_width: function () {
                 return this.faceit_elo >= 2000 ? 260 : this.faceit_elo / 2000 * 260
+            },
+            mapChartData: function () {
+                function dynamicColors() {
+                    const r = Math.floor(Math.random() * 255);
+                    const g = Math.floor(Math.random() * 255);
+                    const b = Math.floor(Math.random() * 255);
+                    return "rgb(" + r + "," + g + "," + b + ")";
+                }
+
+                if (this.toCharts === null) {
+                    return null;
+                }
+
+                const labels = [];
+                const data = {
+                    Matches: [],
+                    Kills: [],
+                    Deaths: [],
+                    Assists: [],
+                    MVPs: [],
+                    Aces: []
+                };
+                const backgroundColor = [];
+
+                this.toCharts.forEach(item => {
+                    labels.push(item.label);
+                    data.Matches.push(item.stats.Matches);
+                    data.Kills.push(item.stats.Kills);
+                    data.Deaths.push(item.stats.Deaths);
+                    data.Assists.push(item.stats.Assists);
+                    data.MVPs.push(item.stats.MVPs);
+                    data.Aces.push(item.stats['Penta Kills']);
+
+                    backgroundColor.push(dynamicColors());
+                });
+
+                const datasets = {};
+                Object.keys(data).forEach(key => {
+                    datasets[key] = [{
+                        label: key,
+                        data: data[key],
+                        backgroundColor
+                    }];
+                });
+
+                return {
+                    labels,
+                    datasets
+                };
             }
         },
         mounted: function () {
@@ -146,7 +203,7 @@
                     });
 
                 getDataFromEndpoint(`players/${this.id}/stats/csgo`)
-                    .then(({ data: { lifetime } }) => {
+                    .then(({ data: { lifetime, segments } }) => {
                         const stats = {};
                         Object.entries(lifetime).forEach(([key, value]) => {
                             if (key !== 'Total Headshots %'
@@ -157,18 +214,20 @@
                             }
                         });
                         this.stats = stats;
+                        this.toCharts = segments;
                     });
             });
         }
     }
 </script>
 
+
 <style scoped>
     .progress-bar {
         height: 4px;
         width: 260px;
         background-color: #A1A4B1;
-        margin-top: 2px;
+        margin-top: 5px;
         position: relative;
         margin-bottom: 30px;
     }
@@ -195,9 +254,8 @@
         align-items: center;
         display: flex;
         justify-content: center;
-        margin-top: .2em;
-        padding-bottom: .4em;
-        font-size: 16px;
+        margin-top: .7em;
+        font-size: 24px;
         font-weight: normal
     }
 
@@ -223,6 +281,12 @@
         overflow: scroll;
         padding: 0;
         max-height: 250px;
+    }
+
+    @media (min-width: 1000px) {
+        .card-content--table {
+            max-height: 400px;
+        }
     }
 
     .card-content--stats {
@@ -284,5 +348,11 @@
 
     .match-table .header {
         font-weight: 500;
+    }
+
+    .charts-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
     }
 </style>

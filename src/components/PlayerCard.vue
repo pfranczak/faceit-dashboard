@@ -62,8 +62,8 @@
         border-bottom: 1px solid rgba(10, 10, 10, .2);
         display: flex;
         justify-content: center;
-        margin-top: .2em;
-        padding-bottom: .4em;
+        margin-top: .4em;
+        padding-bottom: .6em;
     }
 
     .card__flag {
