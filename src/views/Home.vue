@@ -1,7 +1,7 @@
 <template>
     <div>
         <PlayerSearch/>
-        <SteamFriends/>
+        <SteamFriends v-if="isSteamAuth"/>
         <TopPlayers/>
     </div>
 </template>
@@ -17,6 +17,11 @@
             SteamFriends,
             PlayerSearch,
             TopPlayers
+        },
+        data() {
+            return {
+                isSteamAuth: this.$store.getters.steamUser !== null
+            }
         }
     }
 </script>

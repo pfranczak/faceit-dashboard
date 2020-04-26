@@ -1,5 +1,5 @@
 <template>
-    <div 
+    <div
         class="sidenav"
         :class="visible && 'visible'"
     >
@@ -22,10 +22,10 @@ export default {
 
 <style scoped>
 .sidenav {
-  width: 0;  
-  height: 100%; 
+  width: 0;
+  height: 100%;
   position: fixed;
-  z-index: 1;
+  z-index: 9999;
   top: 0;
   right: 0;
   background-color: #111;

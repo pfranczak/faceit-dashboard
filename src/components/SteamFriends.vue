@@ -1,8 +1,11 @@
 <template>
     <div>
-        <h1>STEAM FRIENDS WITH FACEIT ACCOUNT</h1>
-        <div class="cards">
-            <PlayerCard v-for="friend in friends" :key="friend.nickname" v-bind:card="friend"/>
+        <beat-loader v-if="friends === null" :loading="true" :color="'#a3a3a3'" :size="'20px'"></beat-loader>
+        <div v-else>
+            <h1>STEAM FRIENDS WITH FACEIT ACCOUNT</h1>
+            <div class="cards">
+                <PlayerCard v-for="friend in friends" :key="friend.nickname" v-bind:card="friend"/>
+            </div>
         </div>
     </div>
 </template>
@@ -10,13 +13,14 @@
 <script>
     import { getDataFromEndpoint, getDataFromServer } from "../requests";
     import PlayerCard from "./PlayerCard";
+    import BeatLoader from 'vue-spinner/src/BeatLoader';
 
     export default {
         name: "SteamFriends",
-        components: { PlayerCard },
+        components: { PlayerCard, BeatLoader },
         data() {
             return {
-                friends: [],
+                friends: null,
             }
         },
         beforeMount() {
