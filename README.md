@@ -21,6 +21,18 @@ npm run build
 npm run lint
 ```
 
+### Starts both backend and frontend servers locally for developmement
+```
+npm run dev
+```
+
+### Interactive application designs
+
+https://www.figma.com/proto/SBdoD1dD8Pf124762pZQc4/Product-Design-Kit-1.0-by-Mateusz-Wierzbicki?node-id=483%3A802&scaling=min-zoom
+
+Designs created in figma. These are prototypes for how the app was supposed to look like. They are fully interactive and user can click through the app before the app is even created. We created those first as guidelines later when we were developing the app.
+
+
 ### Login flows in application
 
 ![alt text](login-flow.png)
@@ -41,4 +53,22 @@ npm run lint
 After one of the above methods is used requests to the api can be made on behalf of the user.
 
 
+
+### Application funcationalities
+
+![alt text](player-screen.png)
+
+#### Player screen - displays important player statistics, his last matches and charts with maps played
+
+
+![alt text](login-desktop.png)
+
+![alt text](login-mobile.png)
+
+#### Login screen - Displays to buttons that redirect user to proper authentication websites (steam/faceit)
+
+
+![alt text](players-desktop.png)
+
+#### Players screen - Displays top ten players, and allows user to search for players that he wants to compare with.
 
