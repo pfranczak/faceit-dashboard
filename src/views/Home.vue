@@ -1,6 +1,7 @@
 <template>
     <div>
         <PlayerSearch/>
+        <FavouritePlayers />
         <SteamFriends v-if="isSteamAuth"/>
         <TopPlayers/>
     </div>
@@ -10,13 +11,15 @@
     import PlayerSearch from '../components/PlayerSearch';
     import TopPlayers from "../components/TopPlayers";
     import SteamFriends from "../components/SteamFriends";
+    import FavouritePlayers from "../components/FavouritePlayers"
 
     export default {
         name: 'Home',
         components: {
             SteamFriends,
             PlayerSearch,
-            TopPlayers
+            TopPlayers,
+            FavouritePlayers
         },
         data() {
             return {

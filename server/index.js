@@ -22,7 +22,7 @@ require('./mongoDB').connectDB(() => {}).then(() => {
       apiKey: process.env.STEAM_KEY}
     ))
 
-    app.use('/user', steam.enforceLogin('/'), user)
+    app.use('/user', user)
     app.use('/steam', steam.enforceLogin('/'), steamRouter)
 
     app.get('/', function (req, res) {

@@ -59,4 +59,8 @@
     .cards .card {
         background-color: #a9b0b4;
     }
+
+    h1 {
+        padding-top: 1%;
+    }
 </style>

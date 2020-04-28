@@ -5,8 +5,8 @@ router.get('/', (req, res) => {
   res.send(req.user)
 })
 
-router.get('/friends', async (req, res) => {
-  const friends = await helpers.getDbFriends(req.user.steamid)
+router.get('/friends/:id', async (req, res) => {
+  const friends = await helpers.getDbFriends(req.params.id)
   res.send(friends)
 })
 
