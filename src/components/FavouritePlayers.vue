@@ -1,12 +1,11 @@
 <template>
     <div>
         <div v-if="isSteamAuth" class="field">
-            {{!isSteamAuth}}
             <p class="notLogin">Log in to steam to see your favourite players</p>
         </div>
         <div v-else>
             <p class="login"> FAVOURITES PLAYERS </p>
-            <div v-if="this.players.length > 0">
+            <div v-if="players.length > 0">
             <PlayerCard v-for="player in players" :key="player.nickname" v-bind:card="player"/>
             </div>
             <p v-else class="emptyFavoritePlayers">You didn't have favourite players</p>
@@ -17,15 +16,15 @@
 <script>
 
 import {getDataFromEndpoint , getDataFromServer} from "../requests"
- import PlayerCard from "./PlayerCard";
+import PlayerCard from "./PlayerCard";
 
 export default {
     name: "FavoritePlayers",
     components: { PlayerCard },
     data() {
         return {
-            players: null,
-            isSteamAuth: this.$store.getters.steamUser === null
+            players: [],
+            isSteamAuth: this.$store.getters.steamUser !== null
         }
     },
     beforeMount() {
@@ -57,19 +56,19 @@ export default {
 }
 
 .notLogin {
-    font-size: 200%;
-    padding: 2%;
+    font-size: 35px;
+    padding: 20px;
     color: white;
 }
 
 .login{
-    padding: 1%;
+    padding: 20px;
     font-weight: bold;
 }
 
 .emptyFavoritePlayers{
-    font-size: 200%;
-    padding: 2%;
+    font-size: 30px;
+    padding: 15px;
     color: white;
     background-color: #e3e4e8;
 }

@@ -4,7 +4,7 @@
             <img src="../assets/logo.png" class="logo"/>
         </router-link>
         <div>
-            <router-link to="/login" v-if="authenticated">
+            <router-link to="/login" v-if="!authenticated">
                 <button class="button">Login</button>
             </router-link>
             <img src="../assets/hamburger.png" class="hamburger" @click="$emit('show-menu')"/>
