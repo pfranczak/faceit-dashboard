@@ -3,7 +3,7 @@
         <h1>TOP 10 PLAYERS</h1>
         <beat-loader v-if="cards === null && !isError" :loading="true" :color="'#a3a3a3'" :size="'20px'"></beat-loader>
         <div v-else-if="!isError" class="cards">
-            <div v-for="(card, index) in cards" :key="card.nickname"
+            <div v-for="(card, index) in cards" :key="card.nickname" 
                  class="card-wrapper"
             >
 				<span class="position" v-bind:class="{
@@ -11,7 +11,7 @@
 					'position--2': index === 1,
 					'position--3': index === 2
 				}">#{{index + 1}}</span>
-                <PlayerCard v-bind:card="card"/>
+                <PlayerCard v-bind:card="card" v-bind:showAdd="true"/>
             </div>
         </div>
         <b-notification

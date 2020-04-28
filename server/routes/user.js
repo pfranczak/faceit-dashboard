@@ -10,23 +10,18 @@ router.get('/friends/:id', async (req, res) => {
   res.send(friends)
 })
 
-router.post('/friend', async (req, res) => {
-  const userID = req.user.steamid
-  const friendId = req.body.steamid
+router.post('/addFriend/:userId/:addUserId', async (req, res) => {
+  console.log(req.params.userId)
+  const userId = req.params.userId
+  const addUserId = req.params.addUserId
 
-  helpers.checkIfPaysCS(friendId)
-    .then(async _ => {
-      const ids = await helpers.getFriends(userID)
-      const user = await helpers.getUser(userID)
-      if (!user.users.includes(friendId) && !ids.includes(friendId)) {
-        await helpers.addUser(user, friendId)
-      }
-      res.sendStatus(200)
-    })
-    .catch(e => {
-      console.log(e)
-      res.sendStatus(404)
-    })
+  const userData = await helpers.getDbFriends(userId)
+  const user = await helpers.getUser(userId)
+
+  if(!userData.includes(addUserId)){
+    await helpers.addUser(user, addUserId)
+  }
+  res.sendStatus(200)
 })
 
 router.get('/maps', (req, res) => {

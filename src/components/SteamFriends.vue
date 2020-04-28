@@ -4,7 +4,7 @@
         <div v-else>
             <h1>STEAM FRIENDS WITH FACEIT ACCOUNT</h1>
             <div class="cards">
-                <PlayerCard v-for="friend in friends" :key="friend.nickname" v-bind:card="friend"/>
+                <PlayerCard v-for="friend in friends" :key="friend.nickname" v-bind:card="friend" v-bind:showAdd="false"/>
             </div>
         </div>
     </div>

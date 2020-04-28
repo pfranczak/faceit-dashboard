@@ -6,7 +6,7 @@
         <div v-else>
             <p class="login"> FAVOURITES PLAYERS </p>
             <div v-if="players.length > 0">
-            <PlayerCard v-for="player in players" :key="player.nickname" v-bind:card="player"/>
+            <PlayerCard v-for="player in players" :key="player.nickname" v-bind:card="player" v-bind:showAdd='false' />
             </div>
             <p v-else class="emptyFavoritePlayers">You didn't have favourite players</p>
         </div>
@@ -15,7 +15,7 @@
 
 <script>
 
-import {getDataFromEndpoint , getDataFromServer} from "../requests"
+import {getDataFromEndpointWithoutParams , getDataFromServer} from "../requests"
 import PlayerCard from "./PlayerCard";
 
 export default {
@@ -26,25 +26,25 @@ export default {
             players: [],
             isSteamAuth: this.$store.getters.steamUser !== null
         }
-    },
+    }, 
     beforeMount() {
-        const steamId = this.$store.getters.steamUser.steamid
-                getDataFromServer(`/user/friends/${steamId}`).then(({data}) => {
-                    const promises = data.map( steamid  => {
-                        return getDataFromEndpoint('search/players', { nickname: steamid });
-                })
-                Promise.all(promises).then((res) => {
-                    const firendsFromDB = res.flatMap(({ data: { items } }) => items);
-                    this.players = firendsFromDB.map(player => { 
-                        return {
-                            avatar: player.avatar,
-                            nickname: player.nickname,
-                            player_id: player.player_id,
-                            country: player.country
-                        }
-                    });
-                });
+            const steamId = this.$store.getters.steamUser.steamid
+            getDataFromServer(`/user/friends/${steamId}`).then(({data}) => {
+                const promises = data.map( userId  => {
+                    return getDataFromEndpointWithoutParams(`players/${userId}`);
             })
+            Promise.all(promises).then((res) => {
+                const friends = res.map((item) => item.data)
+                this.players = friends.map(player => { 
+                    return {
+                        avatar: player.avatar,
+                        nickname: player.nickname,
+                        player_id: player.player_id,
+                        country: player.country
+                    }
+                });
+            });
+        })
     }
 }
 </script>
