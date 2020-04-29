@@ -23,6 +23,15 @@ router.post('/addFriend/:userId/:addUserId', async (req, res) => {
   res.sendStatus(200)
 })
 
+router.post('/delete/:userId/:removeUserId', async (req, res) => {
+  const userId = req.params.userId
+  const removeUserId = req.params.removeUserId
+
+  await helpers.deleteUser(userId, removeUserId)
+
+  res.sendStatus(200)
+})
+
 router.get('/maps', (req, res) => {
   res.send('YOUR maps XD')
 })
