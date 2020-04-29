@@ -24,7 +24,7 @@ export default {
     data() {
         return {
             players: [],
-            isSteamAuth: this.$store.getters.steamUser == null
+            isSteamAuth: this.$store.getters.steamUser === null
         }
     }, 
     computed: {
