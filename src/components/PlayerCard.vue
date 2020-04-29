@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import { getDataFromEndpoint, postDataToServer } from "../requests";
+    import { getDataFromEndpoint, postDataToServer, getDataFromServer,getDataFromEndpointWithoutParams } from "../requests";
     import Avatar from "./common/Avatar";
 
     export default {
@@ -28,7 +28,8 @@
                 ...this.card,
                 faceit_elo: null,
                 ...this.showAdd,
-                isSteamAuth :this.$store.getters.steamUser !== null
+                isSteamAuth :this.$store.getters.steamUser !== null,
+                players: []
             }
         },
         mounted: function () {
@@ -47,10 +48,29 @@
                 const userId = this.$store.getters.steamUser.steamid
                 const addUserId = this.card.player_id
 
-                postDataToServer(`/user/addFriend/${userId}/${addUserId}`)
-            }
+                postDataToServer(`/user/addFriend/${userId}/${addUserId}`).then(() => {
+                    
+                    getDataFromServer(`/user/friends/${userId}`).then(({data}) => { 
+                        const promises = data.map( id  => {
+                            return getDataFromEndpointWithoutParams(`players/${id}`);
+                        })
+                        Promise.all(promises).then((res) => {
+                            const friends = res.map((item) => item.data)
+                            this.players = friends.map(player => { 
+                                return {
+                                    avatar: player.avatar,
+                                    nickname: player.nickname,
+                                    player_id: player.player_id,
+                                    country: player.country
+                                }
+                            });
+                            this.$store.commit("setFavouritePlayers", this.players) 
+                        });
+                    })
+                }) 
         }
     }
+}
 </script>
 
 <style scoped>

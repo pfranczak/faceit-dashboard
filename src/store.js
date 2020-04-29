@@ -7,7 +7,8 @@ const store = new Vuex.Store({
     state: {
         authenticated: false,
         steamUser: null,
-        playersToCompare: []
+        playersToCompare: [],
+        favouritePlayers:[]
     },
     getters: {
         authenticated(state) {
@@ -18,6 +19,9 @@ const store = new Vuex.Store({
         },
         playersToCompare(state) {
             return state.playersToCompare;
+        },
+        favouritePlayer(state) {
+            return state.favouritePlayers
         }
     },
     actions: {},
@@ -37,6 +41,9 @@ const store = new Vuex.Store({
         },
         removeFromCompare(state, payload) {
             state.playersToCompare = state.playersToCompare.filter(({id}) => id !== payload.id);
+        },
+        setFavouritePlayers(state, payload) {
+            state.favouritePlayers = payload
         }
     }
 });

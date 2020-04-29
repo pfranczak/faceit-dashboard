@@ -5,8 +5,8 @@
         </div>
         <div v-else>
             <p class="login"> FAVOURITES PLAYERS </p>
-            <div v-if="players.length > 0">
-            <PlayerCard v-for="player in players" :key="player.nickname" v-bind:card="player" v-bind:showAdd='false' />
+            <div v-if="playersList.length > 0">
+            <PlayerCard v-for="player in playersList" :key="player.nickname" v-bind:card="player" v-bind:showAdd='false' />
             </div>
             <p v-else class="emptyFavoritePlayers">You didn't have favourite players</p>
         </div>
@@ -20,6 +20,9 @@ import PlayerCard from "./PlayerCard";
 
 export default {
     name: "FavoritePlayers",
+    model: {
+        event: 'refreshPlayersList'
+    },
     components: { PlayerCard },
     data() {
         return {
@@ -27,6 +30,11 @@ export default {
             isSteamAuth: this.$store.getters.steamUser !== null
         }
     }, 
+    computed: {
+        playersList() {
+            return this.$store.getters.favouritePlayer.length > this.players.length ? this.$store.getters.favouritePlayer : this.players
+        }
+    },
     beforeMount() {
             const steamId = this.$store.getters.steamUser.steamid
             getDataFromServer(`/user/friends/${steamId}`).then(({data}) => {
@@ -43,6 +51,7 @@ export default {
                         country: player.country
                     }
                 });
+                this.$store.commit("setFavouritePlayers", this.players)
             });
         })
     }
