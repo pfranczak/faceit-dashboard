@@ -23,6 +23,7 @@ require('./mongoDB').connectDB(() => {}).then(() => {
     ))
 
     app.use('/user', user)
+    app.use('/steamUser', steam.enforceLogin('/'), user)
     app.use('/steam', steam.enforceLogin('/'), steamRouter)
 
     app.get('/', function (req, res) {
