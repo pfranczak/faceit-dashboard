@@ -20,6 +20,18 @@ export const getDataFromEndpoint = (endpoint, params) => {
         });
 };
 
+export const getDataFromEndpointWithoutParams = (endpoint) => {
+    return axios.get(API_URL + endpoint,
+        {
+            headers: DEFAULT_HEADERS
+        });
+};
+
+
 export const getDataFromServer = (endpoint) => {
     return axios.get(SERVER_URL + endpoint, { withCredentials: true });
+};
+
+export const postDataToServer = (endpoint) => {
+    return axios.post(SERVER_URL + endpoint, { withCredentials: true });
 };

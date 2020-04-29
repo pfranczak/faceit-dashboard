@@ -10,7 +10,7 @@
         </div>
         <beat-loader v-show="isLoading" :loading="true" :color="'#a3a3a3'" :size="'20px'"></beat-loader>
         <div class="cards" v-if="!isLoading">
-            <PlayerCard v-for="card in cards" :key="card.nickname" v-bind:card="card"/>
+            <PlayerCard v-for="card in cards" :key="card.nickname" v-bind:card="card" v-bind:showAdd="true"/>
         </div>
     </div>
 </template>
