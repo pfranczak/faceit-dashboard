@@ -20,9 +20,6 @@ import PlayerCard from "./PlayerCard";
 
 export default {
     name: "FavoritePlayers",
-    model: {
-        event: 'refreshPlayersList'
-    },
     components: { PlayerCard },
     data() {
         return {

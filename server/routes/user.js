@@ -11,7 +11,6 @@ router.get('/friends/:id', async (req, res) => {
 })
 
 router.post('/addFriend/:userId/:addUserId', async (req, res) => {
-  console.log(req.params.userId)
   const userId = req.params.userId
   const addUserId = req.params.addUserId
 
