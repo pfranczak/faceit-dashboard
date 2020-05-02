@@ -11,7 +11,10 @@ import Axios from 'axios';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-    mode: 'history',
+    mode : 'hash',
+    base: process.env.NODE_ENV === 'production'
+      ? '/bai-deployed/'
+      : '/',
     routes: [
         { path: '/auth', redirect: () => {
             return '/'
@@ -27,11 +30,11 @@ const router = new VueRouter({
             store.commit('authenticate', window.FACEIT.getAuthenticationStatus() === "connected" || store.getters.steamUser !== null);
             next()
         }},
-    ]
+    ],
 });
 
 router.beforeEach((to, from, next) => {
-    Axios.get('http://localhost:5000/steamUser', { withCredentials: true }).then(({ data: steamUser }) => {
+    Axios.get(process.env.server, { withCredentials: true }).then(({ data: steamUser }) => {
         store.commit('setSteamUser', steamUser);
     }).finally(() => {
         store.commit('authenticate', window.FACEIT.getAuthenticationStatus() === "connected" || store.getters.steamUser !== null);

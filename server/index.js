@@ -28,7 +28,7 @@ require('./mongoDB').connectDB(() => {}).then(() => {
 
     app.get('/', function (req, res) {
       req.user
-        ? res.redirect(client + `/steam-login-success/?user=${JSON.stringify(req.user)}` )
+        ? res.redirect(client + `#/steam-login-success/?user=${JSON.stringify(req.user)}` )
         : res.redirect('/auth/steam')
     })
 

@@ -16,7 +16,7 @@
                 window.FACEIT.loginWithFaceit()
             },
             connectSTEAM () {
-               window.location.replace('http://localhost:5000') 
+               window.location.replace(process.env.VUE_APP_server) 
             },
         },
     }

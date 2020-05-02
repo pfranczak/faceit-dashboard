@@ -1,7 +1,7 @@
 import * as axios from 'axios';
 
 const API_URL = 'https://open.faceit.com/data/v4/';
-const SERVER_URL = process.env.VUE_APP_SERVER;
+const SERVER_URL = process.env.VUE_APP_server;
 
 const DEFAULT_HEADERS = {
     Authorization: `Bearer ${process.env.VUE_APP_FACEIT_KEY}`
