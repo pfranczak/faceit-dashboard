@@ -27,6 +27,7 @@ require('./mongoDB').connectDB(() => {}).then(() => {
     app.use('/steam', steam.enforceLogin('/'), steamRouter)
 
     app.get('/', function (req, res) {
+      res.header('Access-Control-Allow-Origin', 'https://ign699.github.io');
       req.user
         ? res.redirect(client + `#/steam-login-success/?user=${JSON.stringify(req.user)}` )
         : res.redirect('/auth/steam')
