@@ -14,6 +14,12 @@ module.exports = {
       return Promise.reject(e)
     }
   },
+  deleteUser: async(userId, removeUserId) => {
+    const collection = db().collection('users')
+    let user = await collection.findOne({id: userId})
+
+    return collection.updateOne({_id: user._id}, {$set: {users: user.users.filter(uId => uId !==removeUserId)}})
+  },
   getUser: async (userID) => {
     const collection = db().collection('users')
     try {

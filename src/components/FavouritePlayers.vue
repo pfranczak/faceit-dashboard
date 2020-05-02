@@ -6,7 +6,8 @@
         <div v-else>
             <p class="login"> FAVOURITES PLAYERS </p>
             <div v-if="playersList.length > 0">
-            <PlayerCard v-for="player in playersList" :key="player.nickname" v-bind:card="player" v-bind:showAdd='false' />
+            <PlayerCard v-for="player in playersList" :key="player.nickname" 
+            v-bind:card="player" v-bind:showAdd='false' v-bind:showDelete="true" />
             </div>
             <p v-else class="emptyFavoritePlayers">You didn't have favourite players</p>
         </div>
