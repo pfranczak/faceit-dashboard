@@ -12,7 +12,7 @@ var bodyParser = require('body-parser')
 
 
 require('./mongoDB').connectDB(() => {}).then(() => {
-  app.use(cors({credentials: true, origin: ['https://ign699.github.io/']}))
+  app.use(cors({credentials: true, origin: ['https://ign699.github.io']}))
   app.use(bodyParser.json())
   app.use(require('express-session')({ resave: false, saveUninitialized: false, secret: 'a secret' }))
   if(process.env.enviroment!=='prod') {
