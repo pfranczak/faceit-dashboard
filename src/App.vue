@@ -106,6 +106,10 @@
         border-spacing: 0;
     }
 
+    h1 {
+        margin: 1em 0;
+    }
+
     *, *:after, *:before {
         box-sizing: border-box;
     }

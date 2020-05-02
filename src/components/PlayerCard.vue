@@ -10,7 +10,7 @@
         <h6 class="subtitle is-6">{{faceit_elo}}</h6>
         <b-button rounded @click.stop.prevent="addToCompare">Compare</b-button> <br>
         <b-button rounded @click.stop.prevent="addToFavouriteList" class="defaultButton" 
-        v-if="showAdd && isSteamAuth">Add to favourite players list</b-button>
+        v-if="showAdd && isSteamAuth">Favourite</b-button>
         <b-button rounded @click.stop.prevent="deleteFromList" class="defaultButton" 
         v-if="showDelete">Delete player</b-button>
         </router-link>

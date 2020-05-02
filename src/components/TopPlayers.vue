@@ -93,8 +93,4 @@
     .position--3 {
         color: #b08d57;
     }
-
-    h1 {
-        margin: 1em 0;
-    }
 </style>

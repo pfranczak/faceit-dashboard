@@ -4,12 +4,12 @@
             <p class="notLogin">Log in to steam to see your favourite players</p>
         </div>
         <div v-else>
-            <p class="login"> FAVOURITES PLAYERS </p>
+            <h1> FAVOURITES PLAYERS </h1>
             <div v-if="playersList.length > 0">
             <PlayerCard v-for="player in playersList" :key="player.nickname" 
             v-bind:card="player" v-bind:showAdd='false' v-bind:showDelete="true" />
             </div>
-            <p v-else class="emptyFavoritePlayers">You didn't have favourite players</p>
+            <p v-else class="emptyFavoritePlayers">You don't have favourite players</p>
         </div>
     </div>
 </template>
@@ -63,7 +63,7 @@ export default {
 }
 
 .notLogin {
-    font-size: 35px;
+    font-size: 30px;
     padding: 20px;
     color: white;
 }
