@@ -12,7 +12,7 @@ var bodyParser = require('body-parser')
 
 
 require('./mongoDB').connectDB(() => {}).then(() => {
-  app.use(cors({credentials: true, origin: client}))
+  app.use(cors({credentials: true}))
   app.use(bodyParser.json())
   app.use(require('express-session')({ resave: false, saveUninitialized: false, secret: 'a secret' }))
   if(process.env.enviroment!=='prod') {
