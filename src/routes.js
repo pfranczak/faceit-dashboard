@@ -34,7 +34,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    Axios.get(process.env.server, { withCredentials: true }).then(({ data: steamUser }) => {
+    Axios.get(process.env.VUE_APP_server + '/user', { withCredentials: true }).then(({ data: steamUser }) => {
         store.commit('setSteamUser', steamUser);
     }).finally(() => {
         store.commit('authenticate', window.FACEIT.getAuthenticationStatus() === "connected" || store.getters.steamUser !== null);
