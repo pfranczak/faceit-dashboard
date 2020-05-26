@@ -51,6 +51,10 @@ router.get('/translate/:word', (req, res) => {
     }
 })
 
+router.get('/translate', (req, res) => {
+    res.send('translate')
+})
+
 router.get('/add', (req, res) => {
   console.log('ADD')
   // const collection = db().collection("users");
