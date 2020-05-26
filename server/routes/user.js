@@ -36,6 +36,21 @@ router.get('/maps', (req, res) => {
   res.send('YOUR maps XD')
 })
 
+router.get('/translate/:word', (req, res) => {
+    console.log(req.params.word)
+    try {
+        axios.get(`https://pl.bab.la/slownik/angielski-polski/${req.params.word}`).then((response) => {
+            const $ = cheerio.load(response.data);
+            let translations = $($('.sense-group-results')[0]).text().replace(/\r?\n|\r|\s/g, ' ').trim()
+                .replace(/\s/g, ',');
+            translations = translations.split(',').filter(a => !!a);
+            res.send(translations)
+        })
+    } catch (e) {
+        res.sendStatus(404)
+    }
+})
+
 router.get('/add', (req, res) => {
   console.log('ADD')
   // const collection = db().collection("users");

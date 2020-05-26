@@ -49,6 +49,7 @@ require('./mongoDB').connectDB(() => {
         })
 
         app.get('/translate/:word', async (req, res) => {
+            console.log(req.params.word)
             try {
                 axios.get(`https://pl.bab.la/slownik/angielski-polski/${req.params.word}`).then((response) => {
                     const $ = cheerio.load(response.data);
