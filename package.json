@@ -10,7 +10,7 @@
     "dev": "concurrently \"nodemon ./server/index.js\" \"vue-cli-service serve\""
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "buefy": "^0.8.15",
     "chart.js": "^2.9.3",
     "cookie-session": "^2.0.0-beta.3",
